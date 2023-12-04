@@ -43,16 +43,16 @@ public class MilkDistributionSystem extends Application {
         this.primaryStage = primaryStage;
         primaryStage.setTitle("Milk Distribution System");
 
-        // Load user data from file
+
         loadUserDataFromFile();
 
-        // Load orders from file
+    
         loadOrdersFromFile();
 
-        // Initialize milkman
-        milkman = new Milkman<>(new Milk(2)); // Initialize the milkman here
+    
+        milkman = new Milkman<>(new Milk(2)); 
 
-        // Create GUI components
+        
         createLoginPage();
     }
 
@@ -81,9 +81,9 @@ public class MilkDistributionSystem extends Application {
         PasswordField passwordField = new PasswordField();
         Button loginButton = new Button("Login");
 
-        errorLabel = new Label(); // New label for error messages
+        errorLabel = new Label(); 
 
-        // Set the action for the Login button
+        
         loginButton.setOnAction(e -> {
             if (checkLoginCredentials(usernameField.getText(), passwordField.getText())) {
                 try {
@@ -96,7 +96,7 @@ public class MilkDistributionSystem extends Application {
             }
         });
 
-        // Add components to the loginBox
+        
         loginBox.getChildren().addAll(loginLabel, new Label("Username:"), usernameField,
                 new Label("Password:"), passwordField, loginButton, errorLabel);
 
@@ -108,16 +108,16 @@ public class MilkDistributionSystem extends Application {
     private void showMainPage() throws MalformedURLException {
         root = new BorderPane();
 
-        // Initialize houses
+    
         List<House> houses = new ArrayList<>();
         houses.add(new House("House1", "Ali Town"));
         houses.add(new House("House2", "Johar Town"));
         houses.add(new House("House3", "Iqbal Town"));
 
-        // Initialize milk product
-        Milk milk = new Milk(2); // Set price per liter
 
-        // Initialize Milkmen
+        Milk milk = new Milk(2); 
+
+        
         List<Milkman<Milk>> milkmen = new ArrayList<>();
         milkmen.add(new Milkman<>("Ali", houses, milk));
         milkmen.add(new Milkman<>("Ahmad", houses, milk));
@@ -125,26 +125,23 @@ public class MilkDistributionSystem extends Application {
         milkmen.add(new Milkman<>("Abdullah", houses, milk));
         milkmen.add(new Milkman<>("Owais", houses, milk));
 
-        // Initialize Billing System
+    
         billingSystem = new BilingSystem();
 
-        // Create center section for orders and actions
         VBox centerBox = createCenterBox();
         root.setCenter(centerBox);
 
-        // Create bottom section for output
         outputTextArea = new TextArea();
         outputTextArea.setEditable(false);
         outputTextArea.setWrapText(true);
-        root.setBottom(outputTextArea);
-
-        // Load and display the image
+        root.setBottom(outputTextArea)
+            
         File file = new File("C:\\Users\\ah\\Desktop\\Data\\GUIPROJECT\\pic2.jpg");
         String localUrl = file.toURI().toURL().toString();
-        ImageView imageView = new ImageView(new Image(localUrl));// Replace with your image file path
-        imageView.setFitWidth(200); // Set the width of the image
+        ImageView imageView = new ImageView(new Image(localUrl));
+        imageView.setFitWidth(200); 
         imageView.setPreserveRatio(true);
-        root.setRight(imageView); // Display the image to the right
+        root.setRight(imageView); 
 
         Scene mainScene = new Scene(root, 800, 600);
         primaryStage.setScene(mainScene);
@@ -155,7 +152,7 @@ public class MilkDistributionSystem extends Application {
         VBox centerBox = new VBox(10);
         centerBox.setPadding(new Insets(10));
 
-        // Create buttons for actions
+        
         Button addOrderButton = new Button("Add Order");
         Button removeOrderButton = new Button("Remove Order");
         Button calculateRevenueButton = new Button("Calculate Revenue");
@@ -164,7 +161,7 @@ public class MilkDistributionSystem extends Application {
         Button exitButton = new Button("Exit");
         Button nextButton = new Button("Next");
 
-        // Add actions to buttons
+        
         addOrderButton.setOnAction(e -> handleAddOrder());
         removeOrderButton.setOnAction(e -> handleRemoveOrder());
         calculateRevenueButton.setOnAction(e -> handleCalculateRevenue());
@@ -173,7 +170,7 @@ public class MilkDistributionSystem extends Application {
         exitButton.setOnAction(e -> primaryStage.close());
 
 
-        // Add buttons to centerBox
+        
         centerBox.getChildren().addAll(addOrderButton, removeOrderButton, calculateRevenueButton, addHouseButton, saveOrdersButton, exitButton);
 
         return centerBox;
@@ -288,9 +285,9 @@ public class MilkDistributionSystem extends Application {
 
     @Override
     public void stop() {
-        // Save user data to file when the application is closed
+        
         saveUserDataToFile();
-        // Save orders to file when the application is closed
+        
         saveOrdersToFile();
     }
 
@@ -323,13 +320,13 @@ public class MilkDistributionSystem extends Application {
         if (parts.length == 2) {
             String customerName = parts[0];
             int quantity = Integer.parseInt(parts[1]);
-            Milk milkObject = new Milk(2); // Replace 2.5 with the actual price per liter
+            Milk milkObject = new Milk(2); 
 
-            // Create a new Order with the Milk object
+        
             return new Order(customerName, quantity, milkObject);
 
         } else {
-            // Handle invalid format
+        
             return null;
         }
     }
